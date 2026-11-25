@@ -180,6 +180,8 @@
       const on = state.favs.has(name);
       b.setAttribute('aria-pressed', String(on));
       b.textContent = on ? '♥' : '♡';
+      const chipN = $('#fav-count-chip');
+      if (chipN) chipN.textContent = state.favs.size.toLocaleString('pt-BR');
       window.Multiplo.beep(on ? 'done' : 'off');
       if (state.favsOnly) render(true);
       else {
@@ -187,6 +189,9 @@
         if (n) n.textContent = state.favs.size;
       }
     });
+
+    const chipCount = $('#fav-count-chip');
+    if (chipCount) chipCount.textContent = state.favs.size.toLocaleString('pt-BR');
 
     render(true);
     if (p.get('aleatorio') === '1') randomGame();

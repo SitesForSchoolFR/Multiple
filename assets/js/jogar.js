@@ -17,12 +17,42 @@
   let candidates = [];
   let current = 0;
   let local = false;
+  let loadTimer = 0;
+  let menuOpen = false;
+
+  const serverButton = $('#server-picker');
+  const serverMenu = $('#server-menu');
+
+  function serverName(url, index) {
+    try { return new URL(url, location.href).host || ('servidor ' + (index + 1)); }
+    catch (_) { return 'servidor ' + (index + 1); }
+  }
+
+  function renderServers() {
+    if (!serverMenu) return;
+    serverMenu.innerHTML = candidates.map((url, i) => {
+      const active = i === current;
+      return `<button class="server-option${active ? ' is-active' : ''}" type="button" role="option" aria-selected="${active}" data-server="${i}"><span class="server-number">${String(i + 1).padStart(2, '0')}</span><span class="server-host">${esc(serverName(url, i))}</span>${active ? '<span class="server-current">ativo</span>' : ''}</button>`;
+    }).join('') || '<span class="server-empty">nenhum espelho disponível</span>';
+    serverButton.disabled = candidates.length < 2;
+    serverButton.title = candidates.length > 1 ? `escolher servidor · ${candidates.length} disponíveis · M: próximo` : 'não há espelhos conhecidos para este jogo';
+    serverButton.setAttribute('aria-expanded', String(menuOpen));
+  }
+
+  function toggleServerMenu(force) {
+    if (!serverMenu) return;
+    menuOpen = typeof force === 'boolean' ? force : !menuOpen;
+    serverMenu.hidden = !menuOpen;
+    serverButton.setAttribute('aria-expanded', String(menuOpen));
+  }
 
   function showLoading(on) {
     loading.classList.toggle('off', !on);
   }
 
   function setError(msg, detail) {
+    clearTimeout(loadTimer);
+    showLoading(false);
     errBox.hidden = false;
     errBox.innerHTML = `<div>
       <h2>não carregou.</h2>
@@ -38,30 +68,31 @@
   }
 
   function load(i) {
-    current = i;
+    if (!candidates.length) return;
+    current = Math.max(0, Math.min(i, candidates.length - 1));
+    clearTimeout(loadTimer);
     errBox.hidden = true;
     showLoading(true);
-    $('#mirror-idx').textContent = String(i + 1);
-    frame.src = candidates[i];
-    const addr = $('#addr'); if (addr) addr.textContent = candidates[i];
-    const t = setTimeout(() => showLoading(false), 18000);
-    frame.onload = () => { clearTimeout(t); showLoading(false); };
-    /* se o site proíbe iframe, o onload dispara com documento vazio em alguns
-       navegadores; o aviso abaixo é a rede de segurança */
-    setTimeout(() => {
-      if (document.querySelector('.player-loading:not(.off)')) {
-        showLoading(false);
-      }
-    }, 12000);
+    $('#mirror-idx').textContent = `${current + 1}/${candidates.length}`;
+    renderServers();
+    frame.onload = () => { clearTimeout(loadTimer); showLoading(false); };
+    frame.src = candidates[current];
+    const addr = $('#addr'); if (addr) addr.textContent = candidates[current];
+    /* Uma falha de rede pode não disparar eventos úteis em iframe cross-origin.
+       Depois do limite, liberamos os controles sem afirmar que o host caiu. */
+    loadTimer = setTimeout(() => {
+      showLoading(false);
+      if (!errBox.hidden) return;
+      setError('este servidor está demorando para responder.', 'tente outro espelho na lista ou recarregue. alguns sites bloqueiam incorporação; nesse caso, abra em uma nova aba.');
+    }, 24000);
   }
 
   function next(manual) {
-    if (current + 1 >= candidates.length) {
-      showLoading(false);
-      setError('o site original recusa ser aberto dentro de outra página — é uma escolha do servidor deles.', 'você pode tentar outro espelho, abrir em nova aba ou usar o proxy em navegar.html.');
+    if (candidates.length < 2) {
+      setError('não há outro servidor conhecido para este jogo.', 'tente recarregar ou abrir em uma nova aba.');
       return;
     }
-    load(current + 1);
+    load((current + 1) % candidates.length);
     if (manual) toast('trocando de espelho…', '⇄');
   }
 
@@ -162,9 +193,56 @@
     toast(favs.has(game.n) ? 'favoritado' : 'fora dos favoritos', favs.has(game.n) ? '♥' : '♡');
   }
 
+  function openInBlankTab() {
+    const url = candidates[current];
+    if (!url) { toast('nenhum jogo para abrir', '!'); return; }
+    const tab = window.open('about:blank', '_blank');
+    if (!tab) { toast('o navegador bloqueou a nova aba', '!'); return; }
+    try {
+      tab.document.open();
+      tab.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recursos da aula</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080808}iframe{width:100%;height:100%;border:0;background:#080808}</style></head><body></body></html>');
+      const gameFrame = tab.document.createElement('iframe');
+      gameFrame.title = game && game.n ? game.n : 'jogo';
+      gameFrame.allow = 'fullscreen; gamepad; autoplay; clipboard-read; clipboard-write; pointer-lock';
+      gameFrame.allowFullscreen = true;
+      gameFrame.referrerPolicy = 'no-referrer';
+      gameFrame.src = url;
+      tab.document.body.appendChild(gameFrame);
+      tab.document.close();
+      tab.focus();
+      toast('jogo aberto em about:blank', '↗');
+    } catch (_) {
+      tab.location.href = url;
+      toast('abrindo em nova aba', '↗');
+    }
+  }
+
+  function updateClock() {
+    const el = $('#player-clock');
+    if (!el) return;
+    const now = new Date();
+    const time = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    el.textContent = time;
+    el.title = now.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }) + ' · horário local';
+  }
+
   /* barra do player */
   $('#fav-toggle').addEventListener('click', toggleFav);
-  $('#next-mirror').addEventListener('click', () => next(true));
+  serverButton.addEventListener('click', () => toggleServerMenu());
+  serverMenu.addEventListener('click', e => {
+    const option = e.target.closest('[data-server]');
+    if (!option) return;
+    const index = Number(option.dataset.server);
+    toggleServerMenu(false);
+    if (index === current) { load(index); toast('reconectando ao servidor atual', '↻'); }
+    else { load(index); toast('trocando para ' + serverName(candidates[index], index), '⇄'); }
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.server-control')) toggleServerMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleServerMenu(false); });
+  $('#reload-game').addEventListener('click', () => { load(current); toast('recarregando jogo…', '↻'); });
+  $('#open-blank').addEventListener('click', openInBlankTab);
+  updateClock();
+  setInterval(updateClock, 1000);
   $('#copy-link').addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(location.href); toast('link do jogo copiado', '⎘'); }
     catch (_) { toast('não deu para copiar', '!'); }
@@ -180,7 +258,8 @@
   addEventListener('keydown', e => {
     if (e.key === 'Escape' && !document.fullscreenElement) { /* deixa o navegador lidar */ }
     if (e.key.toLowerCase() === 'f' && !e.ctrlKey && !e.metaKey && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) $('#fs').click();
-    if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey) { e.preventDefault(); load(current); }
+    if (e.key.toLowerCase() === 'm' && !e.ctrlKey && !e.metaKey && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); next(true); }
+    if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); load(current); }
   });
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

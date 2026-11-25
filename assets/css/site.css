@@ -1110,7 +1110,26 @@ select.mini {
   background: var(--bg); z-index: 5;
   flex: 0 0 auto;
 }
-.player-bar .name { font-family: var(--serif); font-size: 1.15rem; letter-spacing: -0.01em; line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.player-bar .name { flex: 1 1 auto; font-family: var(--serif); font-size: 1.15rem; letter-spacing: -0.01em; line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.player-bar .server-control { position: relative; flex: 0 0 auto; }
+.player-bar .server-menu {
+  position: absolute; z-index: 20; top: calc(100% + 8px); right: 0;
+  width: min(320px, calc(100vw - 1.2rem)); max-height: min(60vh, 440px); overflow: auto;
+  padding: 0.35rem; border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--surface); box-shadow: 0 14px 42px #0008;
+}
+.player-bar .server-menu[hidden] { display: none; }
+.player-bar .server-option {
+  width: 100%; display: flex; align-items: center; gap: 0.65rem; padding: 0.65rem 0.7rem;
+  border: 0; border-radius: calc(var(--radius) - 1px); background: transparent; color: var(--ink-soft);
+  text-align: left; font-family: var(--mono); font-size: 0.68rem; transition: background var(--fast), color var(--fast);
+}
+.player-bar .server-option:hover, .player-bar .server-option.is-active { background: var(--surface-2); color: var(--ink); }
+.player-bar .server-number { color: var(--muted); font-size: 0.6rem; }
+.player-bar .server-host { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.player-bar .server-current { color: var(--ink); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.player-bar .server-empty { display: block; padding: 0.7rem; color: var(--muted); font-size: 0.7rem; }
+.player-bar .clock-btn { font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
 .player-bar .sep { color: var(--line-strong); }
 .player-bar .sp { flex: 1; }
 .player-bar .tbtn {
@@ -1130,6 +1149,12 @@ select.mini {
   .player-bar { gap: 0.45rem; padding-inline: 0.6rem; }
   .player-bar .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
+@media (max-width: 460px) {
+  #game-thumb, #spot-search { display: none; }
+  .player-bar { gap: 0.35rem; }
+  .player-bar .tbtn { padding-inline: 0.4rem; }
+}
+.player-bar .tbtn:disabled { opacity: 0.48; cursor: not-allowed; }
 .player-stage { position: relative; flex: 1; min-height: 0; background: #000; }
 .player-stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
 .player-loading {

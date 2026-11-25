@@ -38,6 +38,25 @@
     ]
   };
 
+  /* Mirrors confirmados com estrutura compatível: mantemos o mesmo caminho
+     do jogo e só trocamos a origem. Evitamos inventar URLs para hosts que não
+     são cópias do mesmo catálogo. */
+  const SITE_MIRRORS = {
+    bikesense: [
+      'https://aokjezxu6bq.map.azionedge.net/',
+      'https://2rimjouwuyw.map.azionedge.net/',
+      'https://d1yd3j8ypn4f12.cloudfront.net/',
+      'https://d2md2bc53t43kn.cloudfront.net/',
+      'https://d3uzrhklzdl2e5.cloudfront.net/',
+      'https://dz2z1x7nmgnek.cloudfront.net/',
+      'https://d3acwuwzmsce84.cloudfront.net/',
+      'https://2bkyzwcgwsq.map.azionedge.net/',
+      'https://hk1mobtpluy.map.azionedge.net/',
+      'https://kjfexwdq6eg.map.azionedge.net/',
+      'https://judg0kzqjeu.map.azionedge.net/'
+    ]
+  };
+
   const cache = new Map();
   async function getJSON(url) {
     if (cache.has(url)) return cache.get(url);
@@ -93,7 +112,30 @@
       const u = game.u || (game.f ? game.f : '');
       if (!u) return [];
       if (game.f) return [game.f];
-      if (/^https?:/i.test(u)) return [u];
+      if (/^https?:/i.test(u)) {
+        const out = [u];
+        /* GitHub-backed jsDelivr games can use the same exact file through
+           alternate CDN edges; this is a true transport mirror. */
+        const jsdPath = u.match(/^https:\/\/cdn\.jsdelivr\.net\/gh\/([^?#]+)([?#].*)?$/i);
+        if (jsdPath) {
+          for (const base of CDN.jsd.slice(1)) {
+            const candidate = base + jsdPath[1] + (jsdPath[2] || '');
+            if (!out.includes(candidate)) out.push(candidate);
+          }
+        }
+        try {
+          const parsed = new URL(u);
+          const mirrors = game.group === 'bikesense' || /(^|\.)bikesense\.org$/i.test(parsed.hostname) ? SITE_MIRRORS.bikesense : [];
+          if (mirrors.length) {
+            const tail = parsed.pathname.replace(/^\//, '') + parsed.search + parsed.hash;
+            for (const base of mirrors) {
+              const candidate = base + tail;
+              if (!out.includes(candidate)) out.push(candidate);
+            }
+          }
+        } catch (_) { /* endereço bruto; o player exibirá erro ao carregar */ }
+        return out;
+      }
       const out = [];
       const add = (base, file) => { const url = base + encPath(file); if (!out.includes(url)) out.push(url); };
       if (u.startsWith('{GN_HTML}/')) {

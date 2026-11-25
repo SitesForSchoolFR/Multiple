@@ -24,9 +24,16 @@
   <span class="sep" aria-hidden="true">/</span>
   <span class="tiny mono" id="game-src"></span>
   <span class="sp"></span>
-  <span class="tiny mono nowrap" style="display:none" id="hide-mobile">espelho <b id="mirror-idx">1</b></span>
-  <button class="tbtn" type="button" id="next-mirror" title="trocar espelho (r)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg><span>espelho</span></button>
+  <div class="server-control">
+    <button class="tbtn" type="button" id="server-picker" title="escolher servidor / espelho (m: próximo)" aria-haspopup="listbox" aria-expanded="false" aria-controls="server-menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01M12 7h5M12 17h5"/></svg><span>servidor <b id="mirror-idx">1</b></span></button>
+    <div class="server-menu" id="server-menu" role="listbox" aria-label="servidores disponíveis" hidden></div>
+  </div>
+  <button class="tbtn" type="button" id="reload-game" title="recarregar jogo (r)" aria-label="recarregar jogo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6l2 6M4 12l2 6a7 7 0 0 0 12.4-3"/></svg><span>recarregar</span></button>
+  <button class="tbtn" type="button" id="open-blank" title="abrir jogo em about:blank" aria-label="abrir em about:blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M14 4h6v6M20 4 11 13"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg><span>blank</span></button>
+  <button class="tbtn clock-btn" type="button" id="player-clock" title="horário local" aria-label="horário local">--:--</button>
   <button class="tbtn" type="button" id="spot-search" title="procurar na coleção">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4.2 4.2"/></svg><span>coleção</span></button>
   <button class="tbtn fav-toggle" type="button" id="fav-toggle" aria-pressed="false" title="favoritar" aria-label="favoritar este jogo">
