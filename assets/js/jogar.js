@@ -169,7 +169,8 @@
       const catalog = await window.MultiploData.loadGames();
       const pool = catalog.groups.find(x => x.id === 'no-site').games;
       const g = pool[Math.floor(Math.random() * pool.length)];
-      location.replace('jogar.html?j=' + encodeURIComponent(g.n));
+      const destination = 'jogar.html?j=' + encodeURIComponent(g.n);
+      if (!window.MultiploRouter || !window.MultiploRouter.go(destination, true)) location.replace(destination);
     } catch (_) { setError('nada para abrir.'); }
   }
 
@@ -253,7 +254,10 @@
     else if (el.requestFullscreen) el.requestFullscreen();
   });
   $('#spot-search').addEventListener('click', () => {
-    if (game && game.n) location.href = 'jogos.html?q=' + encodeURIComponent(game.n);
+    if (game && game.n) {
+      const destination = 'jogos.html?q=' + encodeURIComponent(game.n);
+      if (!window.MultiploRouter || !window.MultiploRouter.go(destination)) location.href = destination;
+    }
   });
   addEventListener('keydown', e => {
     if (e.key === 'Escape' && !document.fullscreenElement) { /* deixa o navegador lidar */ }

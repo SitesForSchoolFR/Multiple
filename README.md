@@ -3,6 +3,8 @@
 um lugar só para **jogos, links, navegação e estudo** — estático, preto e branco,
 customizável, sem conta e sem rastreamento. Feito para rodar no GitHub Pages.
 
+**URL pública única:** `https://SitesForSchoolFR.github.io/Multiple/`. A navegação interna preserva exatamente essa URL na barra do navegador; a tela atual e seus filtros são mantidos como rota interna da aba.
+
 ## Páginas
 
 | página | o que tem |
@@ -20,6 +22,7 @@ customizável, sem conta e sem rastreamento. Feito para rodar no GitHub Pages.
 
 ```
 assets/css/site.css      design system (preto e branco, temas, cursor, transições)
+assets/js/router.js      navegação interna mantendo a URL pública fixa em /Multiple/
 assets/js/core.js        configs, cursor com bolinha+anel de atraso, paleta (ctrl+k), segredos
 assets/js/data.js        catálogos, expansão de espelhos, thumbnails
 assets/js/jogos.js       busca/filtros/favoritos do catálogo

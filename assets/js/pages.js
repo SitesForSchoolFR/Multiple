@@ -106,7 +106,8 @@
     const go = cloak => {
       const target = (input.value || '').trim();
       if (!target) { input.focus(); return; }
-      location.href = proxyUrl(target, cloak);
+      const destination = proxyUrl(target, cloak);
+      if (!window.MultiploRouter || !window.MultiploRouter.go(destination)) location.href = destination;
     };
     $('#proxy-form').addEventListener('submit', e => { e.preventDefault(); go(false); });
     $('#proxy-embed').addEventListener('click', () => go(false));

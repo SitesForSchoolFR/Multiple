@@ -246,7 +246,7 @@ page({
   <div class="game-grid" id="game-grid" aria-live="polite">
     <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
   </div>
-  <div class="empty-state hide" id="empty"><span class="glyph">∅</span><p>nada encontrado com esse filtro.</p><button class="btn" type="button" onclick="location.href='jogos.html'">limpar filtros</button></div>
+  <div class="empty-state hide" id="empty"><span class="glyph">∅</span><p>nada encontrado com esse filtro.</p><button class="btn" type="button" onclick="window.MultiploRouter?window.MultiploRouter.go('jogos.html'):location.href='jogos.html'">limpar filtros</button></div>
   <div class="load-more hide" id="load-more"><button class="btn" type="button">carregar mais</button></div>
   <div class="notice mt-4">
     <span class="g">!</span>
@@ -621,9 +621,11 @@ const player = `<!doctype html>
 <meta name="description" content="player do múltiplo">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="https://sitesforschoolfr.github.io/Multiple/">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/router.js"></script>
 <script src="assets/js/core.js"></script>
 <script>/* alguns jogos portados do Game Stash chamam a API de anúncios do host original; aqui vira no-op */window.maeExportApis_=function(){};window.maeExportApis=window.maeExportApis_;</script>
 <script defer src="assets/js/data.js"></script>

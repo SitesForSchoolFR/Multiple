@@ -29,12 +29,14 @@ export function head({ title, desc, page, extraCss = [], extraJs = [], bodyClass
 <meta name="description" content="${desc}">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="color-scheme" content="dark light">
+<link rel="canonical" href="https://sitesforschoolfr.github.io/Multiple/">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/favicon.svg">
 <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 ${extraCss.map(c => `<link rel="stylesheet" href="${c}">`).join('\n')}
+<script src="assets/js/router.js"></script>
 <script src="assets/js/core.js"></script>
 ${extraJs.map(j => `<script defer src="${j}"></script>`).join('\n')}
 <meta property="og:title" content="${title}">
