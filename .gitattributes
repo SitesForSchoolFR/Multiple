@@ -1,0 +1,9 @@
+# conteúdo de terceiros que precisa ser servido byte a byte
+proxy/scramjet/**       -text -diff
+proxy/uv/**             -text -diff
+proxy/baremux/**        -text -diff
+proxy/transports/**     -text -diff
+assets/fonts/**         -text -diff
+assets/img/**           -text -diff
+play/games/**           text eol=lf
+data/**                 text eol=lf
