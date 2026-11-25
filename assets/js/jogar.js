@@ -150,7 +150,8 @@
     if (!b) return;
     const on = favs.has(game.n);
     b.setAttribute('aria-pressed', String(on));
-    b.textContent = on ? '♥' : '♡';
+    const path = b.querySelector('path');
+    if (path) path.setAttribute('fill', on ? 'currentColor' : 'none');
   }
   function toggleFav() {
     if (!game || !game.n) return;

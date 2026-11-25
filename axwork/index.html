@@ -1,5 +1,5 @@
-
-
+<!doctype html>
+<html lang="en">
 
 <head>
     <!-- Vendored acorn 8.14.0 + acorn-walk 8.3.4 (MIT), minified. Powers the
@@ -5755,29 +5755,38 @@
 
 <body>
 <style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
   #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
+    display: grid; place-content: center; gap: .9rem; justify-items: center; text-align: center;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
+    transition: opacity .45s ease; }
   #mpl-overlay.gone { opacity: 0; pointer-events: none; }
   #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
+  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .02em; text-transform: none; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 1rem; max-width: 34ch; line-height: 1.4; }
+  #mpl-overlay a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(243,241,234,.35); padding-bottom: 1px; }
+  #mpl-overlay a:hover { border-bottom-color: #f3f1ea; }
+  @keyframes mplspin { to { transform: rotate(360deg); } }
+  /* botão discreto de volta ao múltiplo, no canto, sempre acessível */
+  #mpl-back { position: fixed; left: 10px; bottom: 10px; z-index: 2147483000;
+    font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase;
+    color: #f3f1ea; background: rgba(10,10,10,.82); border: 1px solid rgba(243,241,234,.32);
+    border-radius: 3px; padding: 7px 9px; text-decoration: none; opacity: .5; transition: opacity .2s, background .2s, color .2s;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  #mpl-back:hover, #mpl-back:focus-visible { opacity: 1; background: #f3f1ea; color: #0a0a0a; }
 </style>
 <div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
+  <span class="ring" aria-hidden="true"></span>
+  <span>abrindo o navegador axiom</span>
+  <span class="sub">um navegador inteiro dentro do múltiplo. se demorar, o proxy pode estar acordando.</span>
+  <a href="../navegar.html">← voltar para navegar</a>
 </div>
+<a id="mpl-back" href="../navegar.html">← múltiplo</a>
 <script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
+(function () {
+  var el = document.getElementById('mpl-overlay');
+  function hide() { if (!el) return; el.classList.add('gone'); setTimeout(function () { el && el.remove(); el = null; }, 600); }
+  if (document.readyState === 'complete') setTimeout(hide, 400);
+  else addEventListener('load', function () { setTimeout(hide, 400); });
+  setTimeout(hide, 9000); // fallback
 })();
 </script>
 
@@ -8066,33 +8075,6 @@
 </style>
 </head>
 <body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-
 <div id="app" style="display:none">
   <div id="rail"></div>
   <div id="side">
@@ -12036,33 +12018,6 @@ window._libcurlReady = true;
     </style>
 </head>
 <body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-
     <div class="error-content">
         <div class="error-brand" onclick="window.parent.postMessage({t:'n', u:'axiom://newtab'}, '*')">
             <i class="fas fa-wind"></i>
@@ -18428,34 +18383,7 @@ _VIEWER_BASE_CSS +
 '.spinner{width:36px;height:36px;border:3px solid #252b33;border-top-color:#9de5ff;border-radius:50%;animation:spin .7s linear infinite}' +
 '@keyframes spin{to{transform:rotate(360deg)}}' +
 '#err{display:none;position:fixed;inset:0;background:#0d0f12;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#ff9595;font-size:14px;z-index:1000}' +
-'</style></head><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-' +
+'</style></head><body>' +
 '<div id="loading"><div class="spinner"></div><span id="loadMsg">Loading PDF\u2026</span></div>' +
 '<div id="err"><i class="fas fa-triangle-exclamation" style="font-size:32px"></i><span id="errMsg">Failed to load PDF</span></div>' +
 '<div id="toolbar">' +
@@ -18614,34 +18542,7 @@ _VIEWER_BASE_CSS +
 '#wrap.grabbing{cursor:grabbing}' +
 '#img{max-width:100%;max-height:100%;object-fit:contain;transform-origin:center center;will-change:transform;display:block}' +
 '#info{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(13,15,18,.85);border:1px solid #252b33;border-radius:6px;padding:3px 12px;font-size:11px;color:#7d8a98;pointer-events:none;white-space:nowrap}' +
-'</style></head><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-' +
+'</style></head><body>' +
 '<div id="toolbar">' +
 '  <h1><i class="fas fa-image" style="color:#9de5ff"></i><span>' + filename.replace(/</g,'&lt;') + '</span></h1>' +
 '  <button class="tb-btn" onclick="zoomOut()" title="Zoom out"><i class="fas fa-magnifying-glass-minus"></i></button>' +
@@ -18700,34 +18601,7 @@ _VIEWER_DL_JS +
 '<style>' + _VIEWER_BASE_CSS +
 '#vwrap{flex:1;display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}' +
 'video{max-width:100%;max-height:100%;outline:none}' +
-'</style></head><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-' +
+'</style></head><body>' +
 '<div id="toolbar">' +
 '  <h1><i class="fas fa-film" style="color:#9de5ff"></i>' + filename.replace(/</g,'&lt;') + '</h1>' +
 '  <button class="tb-btn" onclick="dl(DATA,FILENAME)"><i class="fas fa-download"></i> Download</button>' +
@@ -18761,34 +18635,7 @@ _VIEWER_DL_JS +
 '.aud-name{font-size:13px;font-weight:600;color:#f0f4f8;text-align:center;word-break:break-all;line-height:1.4;max-width:100%}' +
 '.aud-mime{font-size:11px;color:#3a4250;font-family:monospace}' +
 'audio{width:100%;accent-color:#9de5ff}' +
-'</style></head><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-' +
+'</style></head><body>' +
 '<div id="toolbar">' +
 '  <h1><i class="fas fa-music" style="color:#9de5ff"></i><span>' + filename.replace(/</g,'&lt;') + '</span></h1>' +
 '  <button class="tb-btn" onclick="dl(DATA,FILENAME)"><i class="fas fa-download"></i> Download</button>' +
@@ -18861,34 +18708,7 @@ _VIEWER_DL_JS +
                     'pre{padding:20px 24px;font-family:"JetBrains Mono","SF Mono",ui-monospace,monospace;font-size:13px;line-height:1.7;color:#b8c4d0;min-height:100%;tab-size:2;white-space:pre}',
                     '.kw{color:#9de5ff}.str{color:#8aefb0}.num{color:#f8dc75}.lit{color:#ff9595}.cmt{color:#3a4250;font-style:italic}',
                     '#wordwrapBtn.active{background:rgba(157,229,255,.12);border-color:rgba(157,229,255,.4);color:#9de5ff}',
-                    '</style></head><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-',
+                    '</style></head><body>',
                     '<div id="toolbar">',
                     '  <h1><i class="fas fa-file-code" style="color:#9de5ff"></i><span>' + esc_fn + '</span></h1>',
                     '  <span style="font-size:11px;color:#3a4250;font-family:monospace;margin-right:4px" id="mimeEl"></span>',
@@ -18926,34 +18746,7 @@ _VIEWER_DL_JS +
 '.btn{border-radius:8px;height:32px;padding:0 16px;font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .12s,color .12s;border:1px solid transparent;font-family:inherit}' +
 '.btn-primary{background:#9de5ff;color:#0b1015;border-color:#9de5ff}.btn-primary:hover{background:#70d4ff}' +
 '.btn-sec{background:#1c2026;color:#b8c4d0;border-color:#2e3540}.btn-sec:hover{background:#252b33;color:#f0f4f8}' +
-'</style></head><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-' +
+'</style></head><body>' +
 '<div class="card">' +
 '  <div class="icon"><i class="fas fa-file-circle-exclamation"></i></div>' +
 '  <h1>Cannot Open File</h1>' +
@@ -19007,34 +18800,7 @@ _VIEWER_DL_JS +
 '.dl-btn:hover{background:#70d4ff}' +
 '.sec-btn{background:#1c2026;border:1px solid #2e3540;color:#b8c4d0;border-radius:8px;height:32px;padding:0 14px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .12s,color .12s}' +
 '.sec-btn:hover{background:#252b33;color:#f0f4f8}' +
-'</style></head><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-' +
+'</style></head><body>' +
 '<div class="card">' +
 '  <div class="icon"><i class="fas fa-file-arrow-down"></i></div>' +
 '  <h1>' + esc_fn + '</h1>' +
@@ -28291,34 +28057,7 @@ _VIEWER_DL_JS +
                     // srcdoc (NOT about:blank): from Axiom's file:// opaque origin an
                     // about:blank child gets its own null origin and blocks parent
                     // scripting; srcdoc inherits file:// so we can install chrome.*.
-                    return new Promise(res => { f.addEventListener('load', () => res(f), { once: true }); f.srcdoc = '<!DOCTYPE html><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-'; root.appendChild(f); });
+                    return new Promise(res => { f.addEventListener('load', () => res(f), { once: true }); f.srcdoc = '<!DOCTYPE html><body>'; root.appendChild(f); });
                 }
                 async function startBackground(ext) {
                     const info = backgroundInfo(ext.manifest); if (!info) return;
@@ -28327,63 +28066,9 @@ _VIEWER_DL_JS +
                     ext.background = { frame: f, events: null };
                     const events = installChrome(win, ext.id, { isBackground: true, senderUrl: chromeExtUrl(ext.id, info.type === 'page' ? info.page : info.type === 'worker' ? info.script : info.scripts[0]) });
                     ext.background.events = events;
-                    if (info.type === 'page') { const raw = await readText(ext.id, info.page); win.document.open(); win.document.write(raw ? await rewriteExtHtml(ext.id, raw, info.page) : '<!DOCTYPE html><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-'); win.document.close(); }
+                    if (info.type === 'page') { const raw = await readText(ext.id, info.page); win.document.open(); win.document.write(raw ? await rewriteExtHtml(ext.id, raw, info.page) : '<!DOCTYPE html><body>'); win.document.close(); }
                     else {
-                        win.document.open(); win.document.write('<!DOCTYPE html><body>
-<style id="multiplo-axiom-overlay">
-  /* barra do múltiplo sobre a Axiom (some quando a página carrega) */
-  #mpl-overlay { position: fixed; inset: 0; z-index: 2147483647; background: #0a0a0a; color: #f3f1ea;
-    display: grid; place-content: center; gap: .8rem; justify-items: center; text-align: center;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    transition: opacity .5s ease; }
-  #mpl-overlay.gone { opacity: 0; pointer-events: none; }
-  #mpl-overlay .ring { width: 34px; height: 34px; border: 2px solid rgba(243,241,234,.18); border-top-color: #f3f1ea; border-radius: 50%; animation: mplspin .9s linear infinite; }
-  #mpl-overlay .sub { color: rgba(243,241,234,.55); letter-spacing: .1em; text-transform: none; font-family: Georgia, serif; font-style: italic; font-size: .95rem; }
-  @keyframes mplspin { to { transform: rotate(1turn); } }
-</style>
-<div id="mpl-overlay" role="status" aria-live="polite">
-  <div class="ring"></div>
-  <div>abrindo o navegador axiom</div>
-  <div class="sub">o proxy roda aqui dentro — a primeira conexão pode levar alguns segundos.</div>
-  <a href="../navegar.html" style="color:#f3f1ea;border:1px solid rgba(243,241,234,.35);padding:.5rem .8rem;border-radius:3px;text-decoration:none">← voltar</a>
-</div>
-<script>
-(function(){
-  var o=document.getElementById('mpl-overlay');
-  var t=setTimeout(function(){ o.classList.add('gone'); }, 60000);
-  function hide(){ clearTimeout(t); setTimeout(function(){ o.classList.add('gone'); }, 1200); }
-  addEventListener('load', hide);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hide, 9000); });
-})();
-</script>
-'); win.document.close();
+                        win.document.open(); win.document.write('<!DOCTYPE html><body>'); win.document.close();
                         const scripts = info.type === 'worker' ? [info.script] : info.scripts;
                         for (const sp of scripts) {
                             const code = await readText(ext.id, sp); if (code == null) continue;

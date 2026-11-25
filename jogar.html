@@ -11,6 +11,7 @@
 <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 <script src="assets/js/core.js"></script>
+<script>/* alguns jogos portados do Game Stash chamam a API de anúncios do host original; aqui vira no-op */window.maeExportApis_=function(){};window.maeExportApis=window.maeExportApis_;</script>
 <script defer src="assets/js/data.js"></script>
 <script defer src="assets/js/jogar.js"></script>
 </head>
@@ -24,11 +25,16 @@
   <span class="tiny mono" id="game-src"></span>
   <span class="sp"></span>
   <span class="tiny mono nowrap" style="display:none" id="hide-mobile">espelho <b id="mirror-idx">1</b></span>
-  <button class="tbtn" type="button" id="next-mirror" title="trocar espelho (r)">espelho ⇄</button>
-  <button class="tbtn" type="button" id="spot-search" title="procurar na coleção">coleção</button>
-  <button class="tbtn fav-toggle" type="button" id="fav-toggle" aria-pressed="false" title="favoritar" aria-label="favoritar este jogo">♡</button>
-  <button class="tbtn" type="button" id="copy-link" title="copiar link">⎘</button>
-  <button class="tbtn" type="button" id="fs" title="tela cheia (f)">⛶</button>
+  <button class="tbtn" type="button" id="next-mirror" title="trocar espelho (r)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg><span>espelho</span></button>
+  <button class="tbtn" type="button" id="spot-search" title="procurar na coleção">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4.2 4.2"/></svg><span>coleção</span></button>
+  <button class="tbtn fav-toggle" type="button" id="fav-toggle" aria-pressed="false" title="favoritar" aria-label="favoritar este jogo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.3A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 7 3.7C19 15.6 12 20 12 20z"/></svg></button>
+  <button class="tbtn" type="button" id="copy-link" title="copiar link" aria-label="copiar link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="1.5"/><path d="M5 15V5a1 1 0 0 1 1-1h8"/></svg></button>
+  <button class="tbtn" type="button" id="fs" title="tela cheia (f)" aria-label="tela cheia">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
 </header>
 <main class="player-stage" id="stage">
   <div class="player-loading" id="loading"><div class="loader"></div><span>abrindo o jogo…</span></div>

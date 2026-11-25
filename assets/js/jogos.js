@@ -53,7 +53,7 @@
       </div>
       <div class="game-info">
         <h3 title="${esc(game.n)}">${esc(game.n)}</h3>
-        <span class="src">${esc(GROUP_LABEL[game.group] || game.group || '')}</span>
+        ${game.group === 'no-site' ? '' : `<span class="src">${esc(GROUP_LABEL[game.group] || game.group || '')}</span>`}
       </div>
     </article>`;
   }

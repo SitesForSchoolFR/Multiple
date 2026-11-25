@@ -18,7 +18,7 @@
     favs: new Set(window.Multiplo.store.get('link-favs', [])),
     favsOnly: false,
     shown: 0,
-    CHUNK: 6
+    CHUNK: 12
   };
 
   const isHttp = u => /^https?:/i.test(u || '');
@@ -116,7 +116,7 @@
     const counts = state.db.counts || {};
     const cats = $('#cat-chips');
     if (cats) cats.innerHTML =
-      `<button class="chip" data-cat="todos" aria-pressed="true">todos<span class="n">${state.db.total}</span></button>` +
+      `<button class="chip" data-cat="todos" aria-pressed="true">todos<span class="n">${Number(state.db.total).toLocaleString('pt-BR')}</span></button>` +
       Object.entries(CAT_LABEL).filter(([k]) => counts[k]).map(([k, label]) =>
         `<button class="chip" data-cat="${k}" aria-pressed="false">${label}<span class="n">${counts[k]}</span></button>`).join('');
     const kinds = $('#kind-chips');

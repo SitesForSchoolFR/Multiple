@@ -31,8 +31,8 @@
       const pool = games.groups.find(g => g.id === 'no-site').games.filter(g => window.MultiploData.coverFor(g));
       const pick = pool.slice(0, 6);
       if (pick[0]) {
-        const cap = $('#hero-caption');
-        if (cap) cap.textContent = 'no site · ' + pick[0].n;
+        const cap = document.querySelector('#hero-pair-caption');
+        if (cap) cap.textContent = pick[0].n;
       }
     }
     /* tira de "no site" */
@@ -48,7 +48,7 @@
       }).join('');
     }
     /* destaque aleatório */
-    const spinPick = $('#spin-pick');
+    const spinPick = $('#spin-title');
     if (spinPick && games) {
       const all = window.MultiploData.all(games);
       const paint = () => {
