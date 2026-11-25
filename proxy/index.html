@@ -7,9 +7,11 @@
 <meta name="description" content="abra qualquer site por dentro do múltiplo: Scramjet + Ultraviolet com service worker no próprio navegador.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="https://sitesforschoolfr.github.io/Multiple/">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/router.js"></script>
 <style>
   .proxy-shell { min-height: 100dvh; display: flex; flex-direction: column; }
   .proxy-top { display: flex; align-items: center; gap: .9rem; padding: .5rem clamp(.7rem, 2vw, 1.2rem); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
@@ -269,7 +271,7 @@
       btns.forEach(function (b) { b.disabled = false; });
     }
   }
-  var params = new URLSearchParams(location.search);
+  var params = window.MultiploRouter ? window.MultiploRouter.params() : new URLSearchParams(location.search);
   var paramUrl = params.get('url');
   if (paramUrl) document.getElementById('url').value = paramUrl;
   if (params.get('engine') === 'uv') document.getElementById('engine').value = 'uv';

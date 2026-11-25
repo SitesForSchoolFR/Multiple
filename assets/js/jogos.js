@@ -112,7 +112,7 @@
     if (!list.length) { toast('nada para sortear com esse filtro', '∅'); return; }
     const pick = list[Math.floor(Math.random() * list.length)];
     toast('sorteado: ' + pick.n, '✦');
-    setTimeout(() => { location.href = href(pick); }, 550);
+    setTimeout(() => { if (!window.MultiploRouter || !window.MultiploRouter.go(href(pick))) location.href = href(pick); }, 550);
   }
 
   async function boot() {
@@ -143,7 +143,9 @@
     chips.addEventListener('click', e => {
       const b = e.target.closest('.chip'); if (!b) return;
       state.group = b.dataset.group; state.page = 1; syncChips(); render(true);
-      history.replaceState(null, '', state.group === 'todos' ? 'jogos.html' : 'jogos.html?grupo=' + encodeURIComponent(state.group));
+      const route = state.group === 'todos' ? 'jogos.html' : 'jogos.html?grupo=' + encodeURIComponent(state.group);
+      if (window.MultiploRouter) window.MultiploRouter.replaceRoute(route);
+      else history.replaceState(null, '', route);
     });
 
     $$('.chip[data-fav-only]').forEach(b => b.addEventListener('click', () => {

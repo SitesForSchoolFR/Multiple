@@ -303,7 +303,7 @@
     function go(it) {
       if (!it) return;
       if (it.type === 'settings') { runSetting(it.u); dlg.close(); return; }
-      location.href = it.u;
+      if (!window.MultiploRouter || !window.MultiploRouter.go(it.u)) location.href = it.u;
     }
     function runSetting(hash) {
       const m = String(hash).slice(1).split(':');
@@ -485,7 +485,7 @@
       if (now - g < 900 && !e.ctrlKey && !e.metaKey) {
         const map = { j: 'jogos.html', l: 'links.html', e: 'estudar.html', n: 'navegar.html', c: 'creditos.html', h: 'index.html' };
         const dest = map[e.key.toLowerCase()];
-        if (dest) { location.href = dest; }
+        if (dest && (!window.MultiploRouter || !window.MultiploRouter.go(dest))) location.href = dest;
       }
     });
 
@@ -603,7 +603,7 @@
           const dlg = document.querySelector('#cmd-palette');
           if (dlg) dlg.close();
           toast('de nada, ryan. ✿ — atalho liberado', '♥');
-          setTimeout(() => { location.href = 'links.html'; }, 500);
+          setTimeout(() => { if (!window.MultiploRouter || !window.MultiploRouter.go('links.html')) location.href = 'links.html'; }, 500);
         }
       });
     };
@@ -627,7 +627,7 @@
     for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
     return a;
   };
-  const params = () => new URLSearchParams(location.search);
+  const params = () => window.MultiploRouter ? window.MultiploRouter.params() : new URLSearchParams(location.search);
 
   /* ---------------------------------------------------------------- *
    * boot

@@ -10,7 +10,7 @@
  */
 (function () {
   "use strict";
-  var base = new URL(".", location.href); // .../proxy/
+  var base = new URL(".", document.baseURI); // mantém /proxy/ mesmo com a barra do navegador na raiz
   var basePath = base.pathname;
 
   window.PROXY_CONFIG = {
