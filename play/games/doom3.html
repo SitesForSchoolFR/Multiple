@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/eazy-man/shHH@main/wasm/d3wasm/">
+    <meta charset="utf-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+            height: 100%;
+            width: 100%;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" tabindex="-1" oncontextmenu="event.preventDefault()"></canvas>
+<script>
+  var Module = {
+    canvas: document.getElementById('canvas'),
+    preRun: [],
+    postRun: [],
+    print: function(text) { console.log(text); },
+    printErr: function(text) { console.error(text); }
+  };
+  window.onerror = function(event) {
+    console.error('Exception thrown: ', event);
+  };
+</script>
+<script async type="text/javascript" src="d3wasm.js"></script>
+<style id="multiplo-player-back">#mpl-back{position:fixed;left:10px;bottom:10px;z-index:2147483000;font:600 11px/1 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#f3f1ea;background:rgba(10,10,10,.82);border:1px solid rgba(243,241,234,.35);border-radius:3px;padding:7px 9px;text-decoration:none;backdrop-filter:blur(6px)}#mpl-back:hover{background:#f3f1ea;color:#0a0a0a}</style><a id="mpl-back" href="../../jogos.html" target="_top">← múltiplo</a></body>
+</html>

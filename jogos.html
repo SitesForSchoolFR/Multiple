@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="tinta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jogos — múltiplo</title>
+<meta name="description" content="3500 jogos para navegador: ports de PC, clássicos, emuladores, 26 rodando direto no site.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/favicon.svg">
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+
+<script src="assets/js/core.js"></script>
+<script defer src="assets/js/data.js"></script>
+<script defer src="assets/js/jogos.js"></script>
+<meta property="og:title" content="jogos — múltiplo">
+<meta property="og:description" content="3500 jogos para navegador: ports de PC, clássicos, emuladores, 26 rodando direto no site.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="">
+<a class="skip-link" href="#conteudo">pular para o conteúdo</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="bg-ornament" aria-hidden="true"></div>
+<div class="shell">
+<header class="site-head">
+  <div class="inner">
+    <a class="brand" href="index.html" aria-label="múltiplo — página inicial">
+      <span class="brand-mark">múltiplo</span>
+      <span class="brand-note">jogos · links · estudos</span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal">
+        <a href="index.html">início</a>
+        <a href="jogos.html" aria-current="page">jogos</a>
+        <a href="navegar.html">navegar</a>
+        <a href="links.html">links</a>
+        <a href="estudar.html">estudar</a>
+        <a href="creditos.html">créditos</a>
+    </nav>
+    <div class="head-actions">
+      <button class="search-pill" type="button" data-palette aria-label="Abrir busca e comandos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.2"/><path d="m15.2 15.2 4.3 4.3"/></svg><span class="lbl">buscar jogos…</span><kbd>ctrl k</kbd>
+      </button>
+      <button class="icon-btn" type="button" data-sound-toggle aria-pressed="false" aria-label="Alternar som" title="som">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h3l4 4V5L7 9H4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
+      </button>
+      <button class="icon-btn" type="button" data-open-settings aria-label="Ajustes" title="ajustes (,)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+      </button>
+      <button class="icon-btn mobile-nav" type="button" data-drawer-open aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<dialog class="modal settings" id="drawer" style="width:min(520px,calc(100vw - 1.2rem))">
+  <div class="modal-head"><h2>menu</h2><button class="modal-close" data-close>fechar ✕</button></div>
+  <div class="modal-body">
+    <nav class="drawer-nav" aria-label="Menu">
+      <a href="index.html">início<small>01</small></a>
+      <a href="jogos.html">jogos<small>02</small></a>
+      <a href="navegar.html">navegar<small>03</small></a>
+      <a href="links.html">links<small>04</small></a>
+      <a href="estudar.html">estudar<small>05</small></a>
+      <a href="creditos.html">créditos<small>06</small></a>
+    </nav>
+    <p class="tiny mt-2">atalhos: <span class="kbd">ctrl k</span> paleta · <span class="kbd">g j</span> jogos · <span class="kbd">g l</span> links · <span class="kbd">,</span> ajustes</p>
+  </div>
+</dialog>
+<main id="conteudo">
+
+<section class="page-head wrap">
+  <p class="eyebrow">acervo</p>
+  <h1>jogos</h1>
+  <p class="lede">3.500 títulos vindos das suas fontes de sempre — mais 26 que rodam aqui dentro, sem sair da página. escolha um e vá.</p>
+  <div class="stats-row stats-row" style="max-width:720px">
+    <div class="stat"><strong id="stat-local">26</strong><span>no site</span></div>
+    <div class="stat"><strong>3.500</strong><span>no total</span></div>
+    <div class="stat"><strong id="fav-count">0</strong><span>favoritos</span></div>
+    <div class="stat"><strong>8</strong><span>fontes</span></div>
+  </div>
+</section>
+
+<section class="section wrap" style="padding-top:1.3rem">
+  <div class="toolbar" role="search">
+    <label class="search-box" for="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.2"/><path d="m15.2 15.2 4.3 4.3"/></svg>
+      <input id="search" type="search" placeholder="nome, autor, gênero…" autocomplete="off" aria-label="Buscar jogos">
+      <kbd>/</kbd>
+    </label>
+    <div class="chips" id="group-chips" role="group" aria-label="Filtrar por fonte"></div>
+    <select class="mini" id="sort" aria-label="Ordenar">
+      <option value="destaque">destaque</option>
+      <option value="az">a → z</option>
+      <option value="za">z → a</option>
+      <option value="aleatorio">aleatório</option>
+    </select>
+    <select class="mini" id="density" aria-label="Densidade dos cartões">
+      <option value="padrao">padrão</option>
+      <option value="compacto">compacto</option>
+      <option value="capa">capa grande</option>
+    </select>
+    <button class="chip" type="button" data-fav-only aria-pressed="false">favoritos ♥<span class="n" id="fav-count-chip">0</span></button>
+    <button class="chip" type="button" id="shuffle">sortear ↻</button>
+  </div>
+  <div class="result-line"><span id="result-count">carregando…</span><span>favoritos: ♥ no canto da capa</span></div>
+  <div class="game-grid" id="game-grid" aria-live="polite">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </div>
+  <div class="empty-state hide" id="empty"><span class="glyph">∅</span><p>nada encontrado com esse filtro.</p><button class="btn" type="button" onclick="location.href='jogos.html'">limpar filtros</button></div>
+  <div class="load-more hide" id="load-more"><button class="btn" type="button">carregar mais</button></div>
+  <div class="notice mt-4">
+    <span class="g">!</span>
+    <div><strong>sobre jogos de terceiros</strong>os títulos vêm de projetos públicos (GN-Math, DuckMath, BlogPaste, Mantle, BikeSense e outros) e podem sair do ar sem aviso. quando o site original recusa abrir dentro de outro, o player avisa e oferece abrir em nova aba ou pelo proxy.</div>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="mark">múltiplo</div>
+        <p>um lugar só para jogos, links, navegação e estudo. feito por quem também estuda — e por quem também quer dar uma pausa.</p>
+        <p class="tiny mt-2">preto e branco, customizável, sem conta e sem rastreamento.</p>
+      </div>
+      <div class="foot-col">
+        <h4>departamentos</h4>
+        <ul>
+          <li><a href="jogos.html">jogos <span class="k">3.500</span></a></li>
+          <li><a href="links.html">links <span class="k">2.000</span></a></li>
+          <li><a href="navegar.html">navegar</a></li>
+          <li><a href="estudar.html">estudar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>atalhos</h4>
+        <ul>
+          <li><a href="jogos.html?aleatorio=1">jogo aleatório <span class="k">↗</span></a></li>
+          <li><a href="links.html?cat=unblockers">unblockers <span class="k">↗</span></a></li>
+          <li><a href="navegar.html#mirrors">mirrors <span class="k">↗</span></a></li>
+          <li><a href="creditos.html">créditos <span class="k">↗</span></a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>fontes</h4>
+        <ul>
+          <li><a href="https://github.com/SitesForSchoolFR/Links" target="_blank" rel="noopener noreferrer">Links</a></li>
+          <li><a href="https://sitesforschoolfr.github.io/estudoescolar/" target="_blank" rel="noopener noreferrer">estudo escolar</a></li>
+          <li><a href="https://sitesforschoolfr.github.io/Nebula/" target="_blank" rel="noopener noreferrer">Nebula</a></li>
+          <li><a href="https://suckinguptoessry.github.io/LuminSDK/" target="_blank" rel="noopener noreferrer">LuminSDK</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span data-year>2026</span> múltiplo · sem fins comerciais</span>
+      <span class="clock" data-clock="full" aria-label="Hora local">--:--</span>
+      <span>feito com paciência, café e fontes abertas <span aria-hidden="true">✳</span></span>
+    </div>
+  </div>
+</footer>
+</div>
+<script>document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear()});</script>
+</body>
+</html>

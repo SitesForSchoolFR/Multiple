@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="tinta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>navegar — múltiplo</title>
+<meta name="description" content="abra qualquer site por dentro do múltiplo: Scramjet + Ultraviolet com service worker no próprio navegador.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+<style>
+  .proxy-shell { min-height: 100dvh; display: flex; flex-direction: column; }
+  .proxy-top { display: flex; align-items: center; gap: .9rem; padding: .5rem clamp(.7rem, 2vw, 1.2rem); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .proxy-top .brand { font-family: var(--serif); font-size: 1.2rem; letter-spacing: -.02em; }
+  .proxy-top .brand::after { content: '.'; }
+  .proxy-top .sp { flex: 1; }
+  .proxy-top .back { font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: .4rem .6rem; border-radius: 2px; }
+  .proxy-top .back:hover { color: var(--ink); border-color: var(--ink); }
+  .proxy-main { width: min(880px, 100%); margin: 0 auto; padding: clamp(1.2rem, 4vw, 3rem) var(--gutter); display: grid; gap: 1.1rem; align-content: start; flex: 1; }
+  .proxy-main h1 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 400; line-height: .95; letter-spacing: -.02em; }
+  .proxy-card { border: 1px solid var(--line-strong); border-radius: var(--radius-lg); background: var(--bg-2); }
+  .proxy-form { padding: clamp(1rem, 3vw, 1.6rem); display: grid; gap: 1rem; }
+  .proxy-url { display: flex; align-items: center; gap: .6rem; border-bottom: 1px solid var(--line-strong); padding-bottom: .7rem; }
+  .proxy-url .scheme { font-family: var(--mono); font-size: .72rem; color: var(--muted); }
+  .proxy-url input { flex: 1; border: 0; background: none; outline: none; font-family: var(--serif); font-size: clamp(1.2rem, 3vw, 1.8rem); letter-spacing: -.01em; min-width: 0; }
+  .proxy-url input::placeholder { color: var(--muted); }
+  .proxy-actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+  .proxy-actions .grow { flex: 1; }
+  .proxy-note { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; color: var(--muted); min-height: 1.2em; }
+  .proxy-note[data-kind='error'] { color: var(--ink); }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+  @media (max-width: 560px) { .opts { grid-template-columns: 1fr; } }
+  .opts label { display: grid; gap: .35rem; font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .opts select { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); padding: .55rem .6rem; font-family: var(--sans); font-size: .84rem; }
+  .frame-wrap { border: 1px solid var(--line-strong); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); }
+  .frame-bar { display: flex; align-items: center; gap: .6rem; padding: .45rem .7rem; border-bottom: 1px solid var(--line); }
+  .frame-bar .dots { display: flex; gap: 4px; }
+  .frame-bar .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+  .frame-bar .addr { font-family: var(--mono); font-size: .62rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  .frame-bar button { font-family: var(--mono); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line); padding: .32rem .5rem; border-radius: 2px; color: var(--ink-soft); }
+  .frame-bar button:hover { border-color: var(--ink); color: var(--ink); }
+  .frame-wrap iframe { width: 100%; height: min(74vh, 720px); border: 0; display: block; background: #fff; }
+  .proxy-foot { display: flex; flex-wrap: wrap; gap: .5rem 1rem; justify-content: space-between; align-items: center; padding: .7rem clamp(.7rem, 2vw, 1.2rem); border-top: 1px solid var(--line); font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .proxy-foot a { color: var(--ink-soft); }
+  .proxy-foot a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .shortcuts { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .shortcut { font-family: var(--mono); font-size: .64rem; letter-spacing: .06em; border: 1px solid var(--line); border-radius: 999px; padding: .38rem .72rem; color: var(--ink-soft); }
+  .shortcut:hover { border-color: var(--ink); color: var(--ink); }
+</style>
+<script src="../assets/js/core.js"></script>
+<script src="config.js"></script>
+<script src="uv/uv.bundle.js"></script>
+<script src="uv/uv.config.js"></script>
+<script src="scramjet/scramjet.all.js"></script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="proxy-shell">
+  <header class="proxy-top">
+    <a class="brand" href="../index.html">múltiplo</a>
+    <span class="tiny mono">navegar</span>
+    <span class="sp"></span>
+    <a class="back" href="../navegar.html">← espelhos & ajuda</a>
+    <a class="back" href="../index.html">início</a>
+  </header>
+
+  <main class="proxy-main">
+    <div>
+      <p class="eyebrow">proxy no navegador</p>
+      <h1>abra qualquer <em>site.</em></h1>
+      <p class="lede mt-1">scramjet é o motor principal, ultraviolet o reserva. tudo roda dentro do seu navegador via service worker — nenhuma página passa por um servidor nosso.</p>
+    </div>
+
+    <form class="proxy-card proxy-form" id="form" autocomplete="off">
+      <div class="proxy-url">
+        <span class="scheme" aria-hidden="true">↗</span>
+        <input id="url" type="text" inputmode="url" spellcheck="false" placeholder="exemplo.com" value="https://www.google.com/" aria-label="endereço">
+      </div>
+      <div class="opts">
+        <label>transporte
+          <select id="transport">
+            <option value="epoxy" selected>epoxy (recomendado)</option>
+            <option value="libcurl">libcurl (legado)</option>
+          </select>
+        </label>
+        <label>motor
+          <select id="engine">
+            <option value="scramjet" selected>scramjet</option>
+            <option value="uv">ultraviolet</option>
+          </select>
+        </label>
+      </div>
+      <div class="proxy-actions">
+        <button class="btn btn--solid" type="submit" id="btn-go">abrir aqui <span class="arr">↘</span></button>
+        <button class="btn" type="button" id="btn-uv">abrir disfarçado ↗</button>
+        <div class="grow"></div>
+        <span class="proxy-note" id="status" role="status" aria-live="polite">pronto.</span>
+      </div>
+      <div class="shortcuts" aria-label="atalhos">
+        <button class="shortcut" type="button" data-go="https://www.google.com/">google</button>
+        <button class="shortcut" type="button" data-go="https://www.youtube.com/">youtube</button>
+        <button class="shortcut" type="button" data-go="https://pt.wikipedia.org/">wikipédia</button>
+        <button class="shortcut" type="button" data-go="https://classroom.google.com/">classroom</button>
+        <button class="shortcut" type="button" data-go="https://www.duolingo.com/">duolingo</button>
+      </div>
+    </form>
+
+    <div class="frame-wrap" id="frame-wrap" hidden>
+      <div class="frame-bar">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="addr" id="frame-src">—</span>
+        <button type="button" id="frame-tab">nova aba</button>
+        <button type="button" id="frame-close">fechar ✕</button>
+      </div>
+      <iframe id="frame" title="conteúdo proxied" allow="fullscreen; gamepad; autoplay; clipboard-read; clipboard-write; camera; microphone"></iframe>
+    </div>
+  </main>
+
+  <footer class="proxy-foot">
+    <span>múltiplo · proxy local</span>
+    <span>scramjet + ultraviolet · <a href="https://github.com/MercuryWorkshop/scramjet" target="_blank" rel="noopener noreferrer">mercury workshop</a> · <a href="https://github.com/titaniumnetwork-dev/Ultraviolet" target="_blank" rel="noopener noreferrer">titanium network</a></span>
+    <span>esc para voltar · f tela cheia</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var CFG = window.PROXY_CONFIG;
+  var statusEl = document.getElementById('status');
+  var connection = null, controller = null, currentTransport = null, readyPromise = null;
+
+  function log(msg, isErr) {
+    statusEl.textContent = msg;
+    statusEl.dataset.kind = isErr ? 'error' : '';
+  }
+  function normalizeUrl(v) {
+    v = (v || '').trim();
+    if (!v) return CFG.target;
+    if (!/^https?:\/\//i.test(v)) v = 'https://' + v;
+    return v;
+  }
+  var SJ_STORES = ['config', 'cookies', 'redirectTrackers', 'referrerPolicies', 'publicSuffixList'];
+  function dbHasStores() {
+    return new Promise(function (resolve) {
+      try {
+        var req = indexedDB.open('$scramjet');
+        req.onsuccess = function () {
+          var db = req.result;
+          var ok = SJ_STORES.every(function (n) { return db.objectStoreNames.contains(n); });
+          db.close(); resolve(ok);
+        };
+        req.onerror = function () { resolve(true); };
+      } catch (e) { resolve(true); }
+    });
+  }
+  function deleteDbOnce(timeoutMs) {
+    return new Promise(function (resolve) {
+      var settled = false;
+      var finish = function (v) { if (!settled) { settled = true; resolve(v); } };
+      try {
+        var del = indexedDB.deleteDatabase('$scramjet');
+        del.onsuccess = function () { finish(true); };
+        del.onerror = function () { finish(false); };
+        del.onblocked = function () { };
+      } catch (e) { finish(false); }
+      setTimeout(function () { finish(false); }, timeoutMs);
+    });
+  }
+  async function healDb() {
+    if (await dbHasStores()) return true;
+    log('reparando dados antigos…');
+    for (var i = 0; i < 8; i++) {
+      if (await deleteDbOnce(5000)) return true;
+      if (await dbHasStores()) return true;
+      await new Promise(function (r) { setTimeout(r, 1200); });
+    }
+    return dbHasStores();
+  }
+  function setup() {
+    if (readyPromise) return readyPromise;
+    readyPromise = (async function () {
+      if (!('serviceWorker' in navigator)) throw new Error('este navegador não suporta service workers (use o chrome ou o edge).');
+      log('registrando o serviço…');
+      var reg = await navigator.serviceWorker.register(CFG.swScript, { scope: CFG.swScope });
+      if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+      try { await reg.update(); } catch (e) { }
+      await navigator.serviceWorker.ready;
+      if (!navigator.serviceWorker.controller) {
+        await new Promise(function (r) {
+          navigator.serviceWorker.addEventListener('controllerchange', r, { once: true });
+          setTimeout(r, 3000);
+        });
+      }
+      await healDb();
+      var baremux = await import(CFG.baremuxModule);
+      connection = new baremux.BareMuxConnection(CFG.baremuxWorker);
+      var ScramjetController = $scramjetLoadController().ScramjetController;
+      controller = new ScramjetController({ prefix: CFG.scramjetPrefix, files: CFG.scramjetFiles });
+      try {
+        await controller.init();
+      } catch (e) {
+        if (!/object stores was not found/i.test(String(e && e.message))) throw e;
+        await healDb();
+        controller = new ScramjetController({ prefix: CFG.scramjetPrefix, files: CFG.scramjetFiles });
+        await controller.init();
+      }
+      log('serviço pronto.');
+      return true;
+    })();
+    readyPromise.catch(function () { readyPromise = null; });
+    return readyPromise;
+  }
+  async function setTransport(kind) {
+    if (currentTransport === kind) return;
+    var lastErr = null;
+    for (var i = 0; i < CFG.wispServers.length; i++) {
+      var wisp = CFG.wispServers[i];
+      try {
+        log('conectando (' + kind + ')…');
+        await connection.setTransport(CFG.transports[kind], [{ wisp: wisp }]);
+        currentTransport = kind;
+        log('conectado.');
+        return;
+      } catch (e) { lastErr = e; }
+    }
+    throw new Error('nenhum servidor respondeu. tente outro transporte ou daqui a pouco. ' + (lastErr ? '(' + lastErr.message + ')' : ''));
+  }
+  function openCloaked(srcUrl) {
+    var win = window.open('about:blank', '_blank');
+    if (!win) { log('o navegador bloqueou a nova janela. libere pop-ups e tente de novo.', true); return; }
+    var fav = 'https://ssl.gstatic.com/classroom/favicon.png';
+    win.document.write(
+      '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Google Sala de Aula</title>' +
+      '<link rel="icon" href="' + fav + '">' +
+      '<style>html,body{margin:0;height:100%;background:#202124}iframe{border:0;width:100%;height:100%;display:block}</style>' +
+      '</head><body><iframe src="' + srcUrl.replace(/'/g, '%27').replace(/"/g, '%22') + '" allow="camera;microphone;fullscreen;display-capture;gamepad;autoplay" allowfullscreen></iframe></body></html>'
+    );
+    win.document.close();
+  }
+  async function openWith(engine, cloak) {
+    var target = normalizeUrl(document.getElementById('url').value);
+    var kind = document.getElementById('transport').value;
+    var btns = document.querySelectorAll('button');
+    btns.forEach(function (b) { b.disabled = true; });
+    try {
+      await setup();
+      await setTransport(kind);
+      var src;
+      if (engine === 'uv') {
+        src = location.origin + window.__uv$config.prefix + window.__uv$config.encodeUrl(target);
+      } else {
+        src = controller.encodeUrl(target);
+        if (!/^https?:\/\//.test(src)) src = location.origin + src;
+      }
+      log('abrindo ' + target + '…');
+      if (cloak) openCloaked(src);
+      else {
+        document.getElementById('frame-wrap').hidden = false;
+        document.getElementById('frame-src').textContent = target;
+        document.getElementById('frame').src = src;
+        document.getElementById('frame-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } catch (e) {
+      log('erro: ' + e.message, true);
+    } finally {
+      btns.forEach(function (b) { b.disabled = false; });
+    }
+  }
+  var params = new URLSearchParams(location.search);
+  var paramUrl = params.get('url');
+  if (paramUrl) document.getElementById('url').value = paramUrl;
+  if (params.get('engine') === 'uv') document.getElementById('engine').value = 'uv';
+  if (params.get('transport') === 'libcurl') document.getElementById('transport').value = 'libcurl';
+
+  document.getElementById('form').addEventListener('submit', function (e) { e.preventDefault(); openWith('scramjet', false); });
+  document.getElementById('btn-uv').addEventListener('click', function () { openWith(document.getElementById('engine').value === 'uv' ? 'uv' : 'scramjet', true); });
+  document.getElementById('transport').addEventListener('change', function () { currentTransport = null; });
+  document.getElementById('frame-close').addEventListener('click', function () {
+    document.getElementById('frame').src = 'about:blank';
+    document.getElementById('frame-wrap').hidden = true;
+  });
+  document.getElementById('frame-tab').addEventListener('click', function () { openCloaked(document.getElementById('frame').src); });
+  document.querySelectorAll('[data-go]').forEach(function (b) {
+    b.addEventListener('click', function () { document.getElementById('url').value = b.dataset.go; openWith('scramjet', false); });
+  });
+
+  setup().then(function () {
+    if (paramUrl && (params.get('auto') === '1' || params.get('cloak') === '1')) {
+      openWith(params.get('engine') === 'uv' ? 'uv' : 'scramjet', params.get('cloak') === '1');
+    }
+  }).catch(function (e) { log('erro ao preparar: ' + e.message, true); });
+})();
+</script>
+</body>
+</html>

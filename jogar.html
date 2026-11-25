@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="tinta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jogar — múltiplo</title>
+<meta name="description" content="player do múltiplo">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/core.js"></script>
+<script>/* alguns jogos portados do Game Stash chamam a API de anúncios do host original; aqui vira no-op */window.maeExportApis_=function(){};window.maeExportApis=window.maeExportApis_;</script>
+<script defer src="assets/js/data.js"></script>
+<script defer src="assets/js/jogar.js"></script>
+</head>
+<body class="player-shell">
+<div class="grain" aria-hidden="true"></div>
+<header class="player-bar">
+  <a class="icon-btn" href="jogos.html" aria-label="voltar aos jogos" title="voltar aos jogos">←</a>
+  <img id="game-thumb" alt="" style="width:26px;height:26px;object-fit:cover;border-radius:2px;border:1px solid var(--line)" onerror="this.remove()">
+  <span class="name" id="game-name">carregando…</span>
+  <span class="sep" aria-hidden="true">/</span>
+  <span class="tiny mono" id="game-src"></span>
+  <span class="sp"></span>
+  <div class="server-control">
+    <button class="tbtn" type="button" id="server-picker" title="escolher servidor / espelho (m: próximo)" aria-haspopup="listbox" aria-expanded="false" aria-controls="server-menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01M12 7h5M12 17h5"/></svg><span>servidor <b id="mirror-idx">1</b></span></button>
+    <div class="server-menu" id="server-menu" role="listbox" aria-label="servidores disponíveis" hidden></div>
+  </div>
+  <button class="tbtn" type="button" id="reload-game" title="recarregar jogo (r)" aria-label="recarregar jogo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6l2 6M4 12l2 6a7 7 0 0 0 12.4-3"/></svg><span>recarregar</span></button>
+  <button class="tbtn" type="button" id="open-blank" title="abrir jogo em about:blank" aria-label="abrir em about:blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M14 4h6v6M20 4 11 13"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg><span>blank</span></button>
+  <button class="tbtn clock-btn" type="button" id="player-clock" title="horário local" aria-label="horário local">--:--</button>
+  <button class="tbtn" type="button" id="spot-search" title="procurar na coleção">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 4.2 4.2"/></svg><span>coleção</span></button>
+  <button class="tbtn fav-toggle" type="button" id="fav-toggle" aria-pressed="false" title="favoritar" aria-label="favoritar este jogo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.3A4.1 4.1 0 0 1 12 7a4.1 4.1 0 0 1 7 3.7C19 15.6 12 20 12 20z"/></svg></button>
+  <button class="tbtn" type="button" id="copy-link" title="copiar link" aria-label="copiar link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="1.5"/><path d="M5 15V5a1 1 0 0 1 1-1h8"/></svg></button>
+  <button class="tbtn" type="button" id="fs" title="tela cheia (f)" aria-label="tela cheia">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+</header>
+<main class="player-stage" id="stage">
+  <div class="player-loading" id="loading"><div class="loader"></div><span>abrindo o jogo…</span></div>
+  <iframe id="frame" title="jogo" allow="fullscreen; gamepad; autoplay; clipboard-read; clipboard-write; pointer-lock" allowfullscreen referrerpolicy="no-referrer"></iframe>
+  <div class="player-error" id="error" hidden></div>
+</main>
+</body>
+</html>
