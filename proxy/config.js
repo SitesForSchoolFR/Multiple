@@ -48,11 +48,12 @@
     // Se um cair, o código tenta o próximo automaticamente.
     wispServers: [
       "wss://wisp.mercurywork.shop/",
-      "wss://wisp.mercuryworkshop.me/",
       "wss://anura.pro/",
+      "wss://wisp.terbiumon.top/wisp/",
       "wss://nebulaproxy.io/wisp/",
       "wss://motor-cycle-part.org/wisp/",
       "wss://invisiproxy.com/wisp/",
+      "wss://mages.io/wisp/",
       "wss://lichology.com/wisp/",
       // "wss://SEU-BACKEND.onrender.com/wisp/",  // <- seu backend (proxy/backend-server.js)
     ],

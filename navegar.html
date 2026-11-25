@@ -99,6 +99,14 @@
       </div>
     </form>
   </div>
+  <div class="proxy-card mt-3" style="padding:clamp(1rem,3vw,1.6rem);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between">
+    <div style="display:grid;gap:.25rem">
+      <span class="eyebrow">axiom</span>
+      <h3 class="serif" style="font-size:1.6rem">navegador completo, dentro do site</h3>
+      <p class="tiny" style="max-width:52ch">um navegador com abas, favoritos e o proxy já embutido. bom para quando o site é teimoso e você quer um ambiente inteiro à mão.</p>
+    </div>
+    <a class="btn btn--solid" href="axwork/index.html">abrir o axiom <span class="arr">↗</span></a>
+  </div>
   <div class="steps mt-3">
     <div class="step"><span class="k">como funciona</span><h3>service worker</h3><p>o proxy registra um service worker em <span class="mono">/proxy/</span> e reescreve o tráfego do site aberto. tudo acontece na sua máquina — nenhuma página passa por um servidor nosso.</p></div>
     <div class="step"><span class="k">dois motores</span><h3>scramjet + uv</h3><p>o scramjet é o principal; o ultraviolet é o plano b. dá para alternar o transporte entre epoxy e libcurl se um servidor wisp cair.</p></div>

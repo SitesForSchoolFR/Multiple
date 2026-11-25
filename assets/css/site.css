@@ -321,6 +321,8 @@ h3 { font-size: var(--step-1); }
 .btn--ghost { border-color: transparent; padding-inline: 0.35em; }
 .btn--ghost:hover { background: none; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 .btn .arr { display: inline-block; transition: transform var(--med) var(--ease); }
+.btn--solid .arr { color: inherit; }
+button.btn { text-align: center; }
 .btn:hover .arr { transform: translate(2px, -2px); }
 .btn--lg { font-size: 0.82rem; padding: 1.05em 1.6em; }
 .btn[disabled] { opacity: 0.45; pointer-events: none; }
