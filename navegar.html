@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="tinta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>navegar — múltiplo</title>
+<meta name="description" content="abra qualquer site por dentro do múltiplo com Scramjet e Ultraviolet, e use a lista de espelhos quando um site cair.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/favicon.svg">
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+
+<script src="assets/js/core.js"></script>
+<script defer src="assets/js/data.js"></script>
+<script defer src="assets/js/pages.js"></script>
+<meta property="og:title" content="navegar — múltiplo">
+<meta property="og:description" content="abra qualquer site por dentro do múltiplo com Scramjet e Ultraviolet, e use a lista de espelhos quando um site cair.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="">
+<a class="skip-link" href="#conteudo">pular para o conteúdo</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="bg-ornament" aria-hidden="true"></div>
+<div class="shell">
+<header class="site-head">
+  <div class="inner">
+    <a class="brand" href="index.html" aria-label="múltiplo — página inicial">
+      <span class="brand-mark">múltiplo</span>
+      <span class="brand-note">jogos · links · estudos</span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal">
+        <a href="index.html">início</a>
+        <a href="jogos.html">jogos</a>
+        <a href="navegar.html" aria-current="page">navegar</a>
+        <a href="links.html">links</a>
+        <a href="estudar.html">estudar</a>
+        <a href="creditos.html">créditos</a>
+    </nav>
+    <div class="head-actions">
+      <button class="search-pill" type="button" data-palette aria-label="Abrir busca e comandos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.2"/><path d="m15.2 15.2 4.3 4.3"/></svg><span class="lbl">navegar…</span><kbd>ctrl k</kbd>
+      </button>
+      <button class="icon-btn" type="button" data-sound-toggle aria-pressed="false" aria-label="Alternar som" title="som">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h3l4 4V5L7 9H4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
+      </button>
+      <button class="icon-btn" type="button" data-open-settings aria-label="Ajustes" title="ajustes (,)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+      </button>
+      <button class="icon-btn mobile-nav" type="button" data-drawer-open aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<dialog class="modal settings" id="drawer" style="width:min(520px,calc(100vw - 1.2rem))">
+  <div class="modal-head"><h2>menu</h2><button class="modal-close" data-close>fechar ✕</button></div>
+  <div class="modal-body">
+    <nav class="drawer-nav" aria-label="Menu">
+      <a href="index.html">início<small>01</small></a>
+      <a href="jogos.html">jogos<small>02</small></a>
+      <a href="navegar.html">navegar<small>03</small></a>
+      <a href="links.html">links<small>04</small></a>
+      <a href="estudar.html">estudar<small>05</small></a>
+      <a href="creditos.html">créditos<small>06</small></a>
+    </nav>
+    <p class="tiny mt-2">atalhos: <span class="kbd">ctrl k</span> paleta · <span class="kbd">g j</span> jogos · <span class="kbd">g l</span> links · <span class="kbd">,</span> ajustes</p>
+  </div>
+</dialog>
+<main id="conteudo">
+
+<section class="page-head wrap">
+  <p class="eyebrow">proxy & espelhos</p>
+  <h1>navegar</h1>
+  <p class="lede">um proxy que roda no seu navegador, sem servidor próprio: escreva um endereço, abra dentro da página ou numa aba disfarçada. e, se um site estiver fora do ar, os espelhos estão logo abaixo.</p>
+</section>
+
+<section class="section wrap" id="proxy">
+  <div class="proxy-card">
+    <form class="proxy-form" id="proxy-form" autocomplete="off">
+      <div class="proxy-url">
+        <span class="scheme" aria-hidden="true">↗</span>
+        <input id="proxy-url" type="text" inputmode="url" spellcheck="false" placeholder="exemplo.com" aria-label="Endereço para abrir" value="">
+      </div>
+      <div class="proxy-actions">
+        <button class="btn btn--solid" id="proxy-embed" type="button">abrir aqui <span class="arr">↘</span></button>
+        <button class="btn" id="proxy-cloak" type="button">abrir disfarçado ↗</button>
+        <div class="grow"></div>
+        <a class="proxy-note" href="proxy/index.html">abrir o navegador do proxy →</a>
+      </div>
+      <div class="row between">
+        <div class="shortcuts" aria-label="Atalhos">
+          <button class="shortcut" type="button" data-url="https://www.google.com/"><b>→</b>Google</button><button class="shortcut" type="button" data-url="https://www.youtube.com/"><b>→</b>YouTube</button><button class="shortcut" type="button" data-url="https://pt.wikipedia.org/"><b>→</b>Wikipedia</button><button class="shortcut" type="button" data-url="https://classroom.google.com/"><b>→</b>Classroom</button><button class="shortcut" type="button" data-url="https://www.duolingo.com/"><b>→</b>Duolingo</button><button class="shortcut" type="button" data-url="https://pt.khanacademy.org/"><b>→</b>Khan Academy</button>
+        </div>
+        <span class="proxy-note">scramjet principal · ultraviolet reserva</span>
+      </div>
+    </form>
+  </div>
+  <div class="steps mt-3">
+    <div class="step"><span class="k">como funciona</span><h3>service worker</h3><p>o proxy registra um service worker em <span class="mono">/proxy/</span> e reescreve o tráfego do site aberto. tudo acontece na sua máquina — nenhuma página passa por um servidor nosso.</p></div>
+    <div class="step"><span class="k">dois motores</span><h3>scramjet + uv</h3><p>o scramjet é o principal; o ultraviolet é o plano b. dá para alternar o transporte entre epoxy e libcurl se um servidor wisp cair.</p></div>
+    <div class="step"><span class="k">backup</span><h3>seu próprio wisp</h3><p>a lista de servidores fica em <span class="mono">proxy/config.js</span>. para mais estabilidade, suba o backend que está em <span class="mono">proxy/backend-server.js</span>.</p></div>
+  </div>
+  <div class="notice mt-3"><span class="g">i</span><div><strong>o que esperar</strong>sites com login em outros domínios (Google, Microsoft) e serviços que exigem DRM podem não funcionar dentro do proxy. em caso de tela branca, tente o outro transporte ou o disfarce em nova aba.</div></div>
+</section>
+
+<section class="section wrap" id="mirrors">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">espelhos</p>
+      <h2 class="display">quando um cai, <em>outro sobe.</em></h2>
+      <p class="lede">endereços alternativos de portais de jogos e estudos. cada cartão abre o primeiro espelho direto no proxy; a lista completa está na coleção.</p>
+    </div>
+    <a class="btn aside" href="links.html?cat=espelhos">todos os espelhos <span class="arr">↗</span></a>
+  </div>
+  <div class="mirror-grid" id="mirror-grid" hidden>
+    <div class="skeleton" style="aspect-ratio:auto;height:110px"></div><div class="skeleton" style="aspect-ratio:auto;height:110px"></div><div class="skeleton" style="aspect-ratio:auto;height:110px"></div><div class="skeleton" style="aspect-ratio:auto;height:110px"></div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">fora do proxy</p>
+      <h2 class="display">caminhos que <em>sempre funcionam.</em></h2>
+    </div>
+  </div>
+  <div class="editorial-list">
+    <a class="editorial-row" href="https://www.google.com/search?q=" target="_blank" rel="noopener noreferrer"><span class="n">01</span><span class="t">pesquisar no google<small>a busca continua funcionando quando o resto cai.</small></span><span class="arrow">↗</span></a>
+    <a class="editorial-row" href="https://pt.wikipedia.org/" target="_blank" rel="noopener noreferrer"><span class="n">02</span><span class="t">wikipédia<small>quase sempre liberada, e tem quase tudo.</small></span><span class="arrow">↗</span></a>
+    <a class="editorial-row" href="https://classroom.google.com/" target="_blank" rel="noopener noreferrer"><span class="n">03</span><span class="t">google sala de aula<small>para lembrar que o trabalho não é só jogar.</small></span><span class="arrow">↗</span></a>
+    <a class="editorial-row" href="estudar.html"><span class="n">04</span><span class="t">estudar aqui<small>quizzes com explicação, sem precisar de proxy.</small></span><span class="arrow">→</span></a>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="mark">múltiplo</div>
+        <p>um lugar só para jogos, links, navegação e estudo. feito por quem também estuda — e por quem também quer dar uma pausa.</p>
+        <p class="tiny mt-2">preto e branco, customizável, sem conta e sem rastreamento.</p>
+      </div>
+      <div class="foot-col">
+        <h4>departamentos</h4>
+        <ul>
+          <li><a href="jogos.html">jogos <span class="k">3.500</span></a></li>
+          <li><a href="links.html">links <span class="k">2.000</span></a></li>
+          <li><a href="navegar.html">navegar</a></li>
+          <li><a href="estudar.html">estudar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>atalhos</h4>
+        <ul>
+          <li><a href="jogos.html?aleatorio=1">jogo aleatório <span class="k">↗</span></a></li>
+          <li><a href="links.html?cat=unblockers">unblockers <span class="k">↗</span></a></li>
+          <li><a href="navegar.html#mirrors">mirrors <span class="k">↗</span></a></li>
+          <li><a href="creditos.html">créditos <span class="k">↗</span></a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>fontes</h4>
+        <ul>
+          <li><a href="https://github.com/SitesForSchoolFR/Links" target="_blank" rel="noopener noreferrer">Links</a></li>
+          <li><a href="https://sitesforschoolfr.github.io/estudoescolar/" target="_blank" rel="noopener noreferrer">estudo escolar</a></li>
+          <li><a href="https://sitesforschoolfr.github.io/Nebula/" target="_blank" rel="noopener noreferrer">Nebula</a></li>
+          <li><a href="https://suckinguptoessry.github.io/LuminSDK/" target="_blank" rel="noopener noreferrer">LuminSDK</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span data-year>2026</span> múltiplo · sem fins comerciais</span>
+      <span class="clock" data-clock="full" aria-label="Hora local">--:--</span>
+      <span>feito com paciência, café e fontes abertas <span aria-hidden="true">✳</span></span>
+    </div>
+  </div>
+</footer>
+</div>
+<script>document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear()});</script>
+</body>
+</html>

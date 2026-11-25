@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="tinta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jogar — múltiplo</title>
+<meta name="description" content="player do múltiplo">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/core.js"></script>
+<script defer src="assets/js/data.js"></script>
+<script defer src="assets/js/jogar.js"></script>
+</head>
+<body class="player-shell">
+<div class="grain" aria-hidden="true"></div>
+<header class="player-bar">
+  <a class="icon-btn" href="jogos.html" aria-label="voltar aos jogos" title="voltar aos jogos">←</a>
+  <img id="game-thumb" alt="" style="width:26px;height:26px;object-fit:cover;border-radius:2px;border:1px solid var(--line)" onerror="this.remove()">
+  <span class="name" id="game-name">carregando…</span>
+  <span class="sep" aria-hidden="true">/</span>
+  <span class="tiny mono" id="game-src"></span>
+  <span class="sp"></span>
+  <span class="tiny mono nowrap" style="display:none" id="hide-mobile">espelho <b id="mirror-idx">1</b></span>
+  <button class="tbtn" type="button" id="next-mirror" title="trocar espelho (r)">espelho ⇄</button>
+  <button class="tbtn" type="button" id="spot-search" title="procurar na coleção">coleção</button>
+  <button class="tbtn" type="button" id="copy-link" title="copiar link">⎘</button>
+  <button class="tbtn" type="button" id="fs" title="tela cheia (f)">⛶</button>
+</header>
+<main class="player-stage" id="stage">
+  <div class="player-loading" id="loading"><div class="loader"></div><span>abrindo o jogo…</span></div>
+  <iframe id="frame" title="jogo" allow="fullscreen; gamepad; autoplay; clipboard-read; clipboard-write; pointer-lock" allowfullscreen referrerpolicy="no-referrer"></iframe>
+  <div class="player-error" id="error" hidden></div>
+</main>
+</body>
+</html>

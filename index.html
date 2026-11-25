@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="tinta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>múltiplo — jogos, links e estudos, num lugar só</title>
+<meta name="description" content="um site só para jogar, navegar, achar links e estudar: 3500 jogos, 2032 links, proxy e quizzes. preto e branco, customizável, sem conta.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/favicon.svg">
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+
+<script src="assets/js/core.js"></script>
+<script defer src="assets/js/data.js"></script>
+<script defer src="assets/js/pages.js"></script>
+<meta property="og:title" content="múltiplo — jogos, links e estudos, num lugar só">
+<meta property="og:description" content="um site só para jogar, navegar, achar links e estudar: 3500 jogos, 2032 links, proxy e quizzes. preto e branco, customizável, sem conta.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="">
+<a class="skip-link" href="#conteudo">pular para o conteúdo</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="bg-ornament" aria-hidden="true"></div>
+<div class="shell">
+<header class="site-head">
+  <div class="inner">
+    <a class="brand" href="index.html" aria-label="múltiplo — página inicial">
+      <span class="brand-mark">múltiplo</span>
+      <span class="brand-note">jogos · links · estudos</span>
+    </a>
+    <nav class="site-nav" aria-label="Navegação principal">
+        <a href="index.html" aria-current="page">início</a>
+        <a href="jogos.html">jogos</a>
+        <a href="navegar.html">navegar</a>
+        <a href="links.html">links</a>
+        <a href="estudar.html">estudar</a>
+        <a href="creditos.html">créditos</a>
+    </nav>
+    <div class="head-actions">
+      <button class="search-pill" type="button" data-palette aria-label="Abrir busca e comandos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.2"/><path d="m15.2 15.2 4.3 4.3"/></svg><span class="lbl">buscar jogos e links…</span><kbd>ctrl k</kbd>
+      </button>
+      <button class="icon-btn" type="button" data-sound-toggle aria-pressed="false" aria-label="Alternar som" title="som">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h3l4 4V5L7 9H4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
+      </button>
+      <button class="icon-btn" type="button" data-open-settings aria-label="Ajustes" title="ajustes (,)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+      </button>
+      <button class="icon-btn mobile-nav" type="button" data-drawer-open aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<dialog class="modal settings" id="drawer" style="width:min(520px,calc(100vw - 1.2rem))">
+  <div class="modal-head"><h2>menu</h2><button class="modal-close" data-close>fechar ✕</button></div>
+  <div class="modal-body">
+    <nav class="drawer-nav" aria-label="Menu">
+      <a href="index.html">início<small>01</small></a>
+      <a href="jogos.html">jogos<small>02</small></a>
+      <a href="navegar.html">navegar<small>03</small></a>
+      <a href="links.html">links<small>04</small></a>
+      <a href="estudar.html">estudar<small>05</small></a>
+      <a href="creditos.html">créditos<small>06</small></a>
+    </nav>
+    <p class="tiny mt-2">atalhos: <span class="kbd">ctrl k</span> paleta · <span class="kbd">g j</span> jogos · <span class="kbd">g l</span> links · <span class="kbd">,</span> ajustes</p>
+  </div>
+</dialog>
+<main id="conteudo">
+
+<section class="hero wrap">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">um lugar só <span aria-hidden="true">✳</span> jogos, links & estudo</p>
+      <h1 class="display hero-title">
+        <span class="line"><span>tudo o que</span></span>
+        <span class="line"><span>você precisa,</span></span>
+        <span class="line"><span><em>num lugar só.</em></span></span>
+      </h1>
+      <p class="lede">os jogos, os links, os espelhos e as matérias que você já conhece — agora num site minimalista, preto e branco, que se ajusta ao seu jeito.</p>
+      <div class="hero-cta">
+        <a class="btn btn--solid btn--lg" href="jogos.html">explorar os jogos <span class="arr">↗</span></a>
+        <a class="btn btn--lg" href="links.html">ver os links <span class="arr">↗</span></a>
+        <button class="btn btn--ghost" type="button" data-palette>buscar <span class="kbd">/</span></button>
+      </div>
+      <div class="hero-meta">
+        <span><b id="stat-games">3.500</b> jogos</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span><b id="stat-links">2.032</b> links</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span><b id="stat-unblockers">750</b> unblockers</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>sem login · sem rastreamento</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-pair">
+        <figure class="hero-poster" id="hero-poster">
+          <span class="stamp"><b>01</b>edição</span>
+          <picture>
+            <source srcset="assets/img/hero.webp" type="image/webp">
+            <img id="hero-img" src="assets/img/hero.jpg" alt="eclipse desenhado em linhas finas, capa da edição" width="700" height="700">
+          </picture>
+          <figcaption class="poster-tag" id="hero-caption">múltiplo / edição 01</figcaption>
+        </figure>
+        <figure class="hero-poster hero-poster--b" aria-hidden="true">
+          <picture>
+            <source srcset="assets/img/collage.webp" type="image/webp">
+            <img src="assets/img/collage.jpg" alt="" width="800" height="993" loading="lazy">
+          </picture>
+          <figcaption class="poster-tag">maze · dice · pad</figcaption>
+        </figure>
+      </div>
+      <div class="caption"><span>edição 01 / 2026</span><span>preto & branco · feito à mão</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-row wrap" style="max-width:var(--max)">
+  <div class="stat"><strong id="stat-local">26</strong><span>jogos rodam aqui dentro</span></div>
+  <div class="stat"><strong id="stat-groups">8</strong><span>fontes de catálogo</span></div>
+  <div class="stat"><strong>862</strong><span>links de estudo</span></div>
+  <div class="stat"><strong>309</strong><span>espelhos e mirrors</span></div>
+</div>
+
+<div class="marquee mt-3" aria-hidden="true">
+  <div class="marquee-track">
+    <span>sem login</span><span>sem cookies de rastreamento</span><span>preto & branco</span><span>fontes abertas</span><span>editável do seu jeito</span><span>feito pra escola</span><span>3.500 jogos</span><span>2.032 links</span>
+    <span>sem login</span><span>sem cookies de rastreamento</span><span>preto & branco</span><span>fontes abertas</span><span>editável do seu jeito</span><span>feito pra escola</span><span>3.500 jogos</span><span>2.032 links</span>
+  </div>
+</div>
+
+<section class="section wrap" id="departamentos">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">departamentos</p>
+      <h2 class="display">escolha por onde <em>começar.</em></h2>
+      <p class="lede">quatro portas, a mesma casa. tudo aqui é acessível em um clique, sem cadastro, sem anúncio.</p>
+    </div>
+    <a class="btn aside" href="jogos.html?aleatorio=1">jogo aleatório <span class="arr">↗</span></a>
+  </div>
+  <div class="depts" id="home-departments">
+    <a class="dept" href="jogos.html" data-reveal>
+      <span class="idx">01</span>
+      <div class="dept-main">
+        <h3>jogos</h3>
+        <p>3.500 títulos, de clássicos a ports de PC. 26 rodam aqui dentro, sem sair do site.</p>
+        <div class="meta"><span>3.500 títulos</span><span>26 no site</span></div>
+      </div>
+      <span class="go" aria-hidden="true">↗</span>
+    </a>
+    <a class="dept" href="links.html" data-reveal data-delay="1">
+      <span class="idx">02</span>
+      <div class="dept-main">
+        <h3>links</h3>
+        <p>a coleção inteira: jogos, estudos, filmes, unblockers e os espelhos que circulam por aí — 2.032 endereços.</p>
+        <div class="meta"><span>148 coleções</span><span>750 unblockers</span></div>
+      </div>
+      <span class="go" aria-hidden="true">↗</span>
+    </a>
+    <a class="dept" href="navegar.html" data-reveal data-delay="2">
+      <span class="idx">03</span>
+      <div class="dept-main">
+        <h3>navegar</h3>
+        <p>um proxy no próprio navegador (Scramjet + Ultraviolet) e uma lista de espelhos para abrir qualquer site, até os mais teimosos.</p>
+        <div class="meta"><span>scramjet</span><span>ultraviolet</span><span>wisp</span></div>
+      </div>
+      <span class="go" aria-hidden="true">↗</span>
+    </a>
+    <a class="dept" href="estudar.html" data-reveal data-delay="3">
+      <span class="idx">04</span>
+      <div class="dept-main">
+        <h3>estudar</h3>
+        <p>quizzes de matemática, português, ciências, história e geografia, do 1º ano ao ensino médio — com explicação em cada resposta.</p>
+        <div class="meta"><span>12 anos e séries</span><span>foco & notas</span></div>
+      </div>
+      <span class="go" aria-hidden="true">↗</span>
+    </a>
+  </div>
+</section>
+
+<section class="section wrap" id="aqui-dentro">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">roda aqui dentro</p>
+      <h2 class="display">jogos que não <em>saem daqui.</em></h2>
+      <p class="lede">alguns funcionam direto no site — pressione jogar e pronto. do Doom ao GTA, passando por emuladores.</p>
+    </div>
+    <a class="btn aside" href="jogos.html?grupo=no-site">ver todos os 26 <span class="arr">↗</span></a>
+  </div>
+  <div class="strip-scroll" id="strip-local" aria-label="jogos no site">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">sorte</p>
+      <h2 class="display">deixa a sorte <em>escolher.</em></h2>
+      <p class="lede">aperte o botão e um jogo qualquer aparece. se não gostar, sorteia de novo — a gente não julga.</p>
+    </div>
+  </div>
+  <div class="spin-card">
+    <div class="spin-art" id="spin-art"><span class="ph" aria-hidden="true">✦</span></div>
+    <div class="spin-body" id="spin-body">
+      <span class="kind" id="spin-src">sorteando…</span>
+      <h3 id="spin-title">—</h3>
+      <p class="tiny" id="spin-note">o botão escolhe um dos 3.500 jogos do catálogo.</p>
+      <div class="actions">
+        <a class="btn btn--solid" id="spin-open" href="jogos.html">jogar <span class="arr">↗</span></a>
+        <button class="btn" id="spin-next" type="button">outro ↻</button>
+        <a class="btn btn--ghost" id="spin-link" href="links.html">procurar espelho</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">links</p>
+      <h2 class="display">a coleção <em>cresce.</em></h2>
+      <p class="lede">quando alguém manda uma leva nova de espelhos, ela entra aqui. aperte e veja um link aleatório.</p>
+    </div>
+    <a class="btn aside" href="links.html">abrir a coleção <span class="arr">↗</span></a>
+  </div>
+  <div class="steps">
+    <div class="step" data-reveal><span class="k">passo 01</span><h3>ache</h3><p>busque por nome, domínio ou matéria. 2.032 endereços catalogados em 148 coleções.</p></div>
+    <div class="step" data-reveal data-delay="1"><span class="k">passo 02</span><h3>teste</h3><p>cada linha tem um botão de proxy: se o site estiver bloqueado, abra por dentro do navegar.</p></div>
+    <div class="step" data-reveal data-delay="2"><span class="k">passo 03</span><h3>guarde</h3><p>favorite o que funcionar. os favoritos ficam no seu navegador e podem ser exportados.</p></div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="quote" data-reveal>feito para quem estuda <em>e</em> para quem precisa de uma pausa entre uma matéria e outra.</div>
+  <div class="row mt-3">
+    <a class="btn" href="creditos.html">de onde vem tudo isso <span class="arr">↗</span></a>
+    <span class="tiny">as fontes originais estão nos créditos — sem elas, nada disso existiria.</span>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="mark">múltiplo</div>
+        <p>um lugar só para jogos, links, navegação e estudo. feito por quem também estuda — e por quem também quer dar uma pausa.</p>
+        <p class="tiny mt-2">preto e branco, customizável, sem conta e sem rastreamento.</p>
+      </div>
+      <div class="foot-col">
+        <h4>departamentos</h4>
+        <ul>
+          <li><a href="jogos.html">jogos <span class="k">3.500</span></a></li>
+          <li><a href="links.html">links <span class="k">2.000</span></a></li>
+          <li><a href="navegar.html">navegar</a></li>
+          <li><a href="estudar.html">estudar</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>atalhos</h4>
+        <ul>
+          <li><a href="jogos.html?aleatorio=1">jogo aleatório <span class="k">↗</span></a></li>
+          <li><a href="links.html?cat=unblockers">unblockers <span class="k">↗</span></a></li>
+          <li><a href="navegar.html#mirrors">mirrors <span class="k">↗</span></a></li>
+          <li><a href="creditos.html">créditos <span class="k">↗</span></a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>fontes</h4>
+        <ul>
+          <li><a href="https://github.com/SitesForSchoolFR/Links" target="_blank" rel="noopener noreferrer">Links</a></li>
+          <li><a href="https://sitesforschoolfr.github.io/estudoescolar/" target="_blank" rel="noopener noreferrer">estudo escolar</a></li>
+          <li><a href="https://sitesforschoolfr.github.io/Nebula/" target="_blank" rel="noopener noreferrer">Nebula</a></li>
+          <li><a href="https://suckinguptoessry.github.io/LuminSDK/" target="_blank" rel="noopener noreferrer">LuminSDK</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span data-year>2026</span> múltiplo · sem fins comerciais</span>
+      <span class="clock" data-clock="full" aria-label="Hora local">--:--</span>
+      <span>feito com paciência, café e fontes abertas <span aria-hidden="true">✳</span></span>
+    </div>
+  </div>
+</footer>
+</div>
+<script>document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear()});</script>
+</body>
+</html>
