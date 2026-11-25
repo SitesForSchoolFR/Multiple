@@ -85,6 +85,7 @@
         game = g;
         document.title = g.n + ' — múltiplo';
         $('#game-name').textContent = g.n;
+        paintFav();
         $('#game-src').textContent = g.f ? 'no site' : ('via ' + (g.credit || g.group || 'projeto original'));
         if (g.f) {
           local = true;
@@ -127,6 +128,7 @@
       document.title = (name || 'jogo') + ' — múltiplo';
       $('#game-name').textContent = name || 'jogo';
       $('#game-src').textContent = 'site original';
+      paintFav();
       load(0);
       return;
     }
@@ -140,7 +142,27 @@
     } catch (_) { setError('nada para abrir.'); }
   }
 
+  /* favoritos na barra */
+  function paintFav() {
+    if (!game || !game.n) return;
+    const favs = new Set(store.get('favs', []));
+    const b = $('#fav-toggle');
+    if (!b) return;
+    const on = favs.has(game.n);
+    b.setAttribute('aria-pressed', String(on));
+    b.textContent = on ? '♥' : '♡';
+  }
+  function toggleFav() {
+    if (!game || !game.n) return;
+    const favs = new Set(store.get('favs', []));
+    if (favs.has(game.n)) favs.delete(game.n); else favs.add(game.n);
+    store.set('favs', [...favs]);
+    paintFav();
+    toast(favs.has(game.n) ? 'favoritado' : 'fora dos favoritos', favs.has(game.n) ? '♥' : '♡');
+  }
+
   /* barra do player */
+  $('#fav-toggle').addEventListener('click', toggleFav);
   $('#next-mirror').addEventListener('click', () => next(true));
   $('#copy-link').addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(location.href); toast('link do jogo copiado', '⎘'); }

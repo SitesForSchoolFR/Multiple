@@ -591,20 +591,27 @@
     });
 
     /* "obrigado, ryan" na paleta — homenagem ao links for me */
+    let ryanHooked = false;
+    const hookRyan = () => {
+      if (ryanHooked) return;
+      const input = document.querySelector('#pal-input');
+      if (!input) return;
+      ryanHooked = true;
+      input.addEventListener('input', () => {
+        if (input.value.trim().toLowerCase() === 'obrigado, ryan') {
+          input.value = '';
+          const dlg = document.querySelector('#cmd-palette');
+          if (dlg) dlg.close();
+          toast('de nada, ryan. ✿ — atalho liberado', '♥');
+          setTimeout(() => { location.href = 'links.html'; }, 500);
+        }
+      });
+    };
     document.addEventListener('keydown', e => {
-      if (!(e.ctrlKey || e.metaKey) || e.key.toLowerCase() !== 'k') return;
-      setTimeout(() => {
-        const input = document.querySelector('#pal-input');
-        if (!input) return;
-        input.addEventListener('input', () => {
-          if (input.value.trim().toLowerCase() === 'obrigado, ryan') {
-            input.value = '';
-            document.querySelector('#cmd-palette').close();
-            toast('de nada, ryan. ✿ — atalho liberado', '♥');
-            location.href = 'links.html';
-          }
-        });
-      }, 60);
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') setTimeout(hookRyan, 60);
+    });
+    document.addEventListener('click', e => {
+      if (e.target.closest('[data-palette]')) setTimeout(hookRyan, 60);
     });
   }
 

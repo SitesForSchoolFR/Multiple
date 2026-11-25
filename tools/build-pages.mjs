@@ -624,6 +624,7 @@ const player = `<!doctype html>
   <span class="tiny mono nowrap" style="display:none" id="hide-mobile">espelho <b id="mirror-idx">1</b></span>
   <button class="tbtn" type="button" id="next-mirror" title="trocar espelho (r)">espelho ⇄</button>
   <button class="tbtn" type="button" id="spot-search" title="procurar na coleção">coleção</button>
+  <button class="tbtn fav-toggle" type="button" id="fav-toggle" aria-pressed="false" title="favoritar" aria-label="favoritar este jogo">♡</button>
   <button class="tbtn" type="button" id="copy-link" title="copiar link">⎘</button>
   <button class="tbtn" type="button" id="fs" title="tela cheia (f)">⛶</button>
 </header>

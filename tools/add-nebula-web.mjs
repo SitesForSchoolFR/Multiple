@@ -27,7 +27,7 @@ for (const e of missing) {
   else if (/^3 Pandas/.test(e.name)) g = '3 Pandas';
   else if (e.name === 'Tomcat F-14 Flight Sim' || e.name === 'Minecraft Tower Defense') g = 'Clássicos do navegador';
   if (!groups.has(g)) groups.set(g, []);
-  groups.get(g).push({ n: e.name });
+  groups.get(g).push({ n: e.name, u: 'https://www.google.com/search?q=' + encodeURIComponent(e.name + ' jogo'), search: true });
 }
 
 const target = db.groups.find(g => g.name === 'Jogos da Nebula') || (() => {

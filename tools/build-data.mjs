@@ -91,7 +91,16 @@ function buildGames() {
     const from = path.join(SRC, 'Nebula', 'games', folder, file);
     if (!fs.existsSync(from)) continue;
     fs.mkdirSync(localGamesDir, { recursive: true });
-    fs.copyFileSync(from, path.join(localGamesDir, file));
+    const to = path.join(localGamesDir, file);
+    fs.copyFileSync(from, to);
+    /* botão flutuante para voltar ao múltiplo, injetado em cada jogo local */
+    const back = '<style id="multiplo-player-back">#mpl-back{position:fixed;left:10px;bottom:10px;z-index:2147483000;font:600 11px/1 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#f3f1ea;background:rgba(10,10,10,.82);border:1px solid rgba(243,241,234,.35);border-radius:3px;padding:7px 9px;text-decoration:none;backdrop-filter:blur(6px)}#mpl-back:hover{background:#f3f1ea;color:#0a0a0a}</style><a id="mpl-back" href="../../jogos.html" target="_top">← múltiplo</a>';
+    let html = fs.readFileSync(to, 'utf8');
+    if (!html.includes('multiplo-player-back')) {
+      const i = html.toLowerCase().lastIndexOf('</body>');
+      html = i > -1 ? html.slice(0, i) + back + html.slice(i) : html + back;
+      fs.writeFileSync(to, html);
+    }
     const thumb = cover ? path.basename(cover) : '';
     local.push({ n: name, f: "play/games/" + file, c: thumb });
   }

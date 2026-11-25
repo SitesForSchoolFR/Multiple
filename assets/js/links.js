@@ -42,6 +42,7 @@
     const q = norm(state.query);
     return state.groups.filter(g => {
       if (!matchGroup(g)) return false;
+      if (!rowsFor(g).length) return false;
       if (!q) return true;
       if (norm(g.name).includes(q)) return true;
       if (norm(g.note || '').includes(q)) return true;
@@ -65,7 +66,7 @@
           <strong>${esc(label)}</strong>
           ${sub ? `<small>${esc(sub)}</small>` : ''}
         </a>
-        <span class="tag">${isSvg ? 'svg' : esc(KIND_LABEL[group.kind] || 'site')}</span>
+        <span class="tag">${l.search ? 'busca' : isSvg ? 'svg' : esc(KIND_LABEL[group.kind] || 'site')}</span>
         <span class="actions">
           <button class="icon-btn" type="button" data-fav-link="${esc(l.u)}" aria-pressed="${fav}" aria-label="favoritar link" title="favoritar">${fav ? '♥' : '♡'}</button>
           <button class="icon-btn" type="button" data-copy="${esc(l.u)}" aria-label="copiar link" title="copiar">⎘</button>
